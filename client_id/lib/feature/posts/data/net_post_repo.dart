@@ -19,7 +19,10 @@ class NetPostRepo implements PostRepo {
       //   return const Iterable.empty();
       // }
       return response.data;
-    } catch (_) {
+    } on DioError catch (err) {
+      if (err.response?.statusCode == 404) {
+        return const Iterable.empty();
+      }
       rethrow;
     }
   }

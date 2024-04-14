@@ -71,13 +71,17 @@ class AuthCubit extends HydratedCubit<AuthState> {
     super.addError(error, stackTrace);
   }
 
-  Future<void> refreshToken() async {
+  Future<String?> refreshToken() async {
     final refreshToken =
         state.whenOrNull(authorized: (userEntity) => userEntity.refreshToken);
     try {
-      final UserEntity userEntity =
-          await authRepository.refreshToken(refreshToken: refreshToken);
-      emit(AuthState.authorized(userEntity));
+      return await authRepository
+          .refreshToken(refreshToken: refreshToken)
+          .then((value) {
+        final UserEntity userEntity = value;
+        emit(AuthState.authorized(userEntity));
+        return userEntity.accessToken;
+      });
     } catch (error, st) {
       addError(error, st);
     }
