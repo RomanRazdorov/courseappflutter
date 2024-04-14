@@ -109,6 +109,11 @@ class DioAppApi implements AppApi {
   Future fetchPost(String id) {
     return dio.get("/data/posts/$id");
   }
+
+  @override
+  Future deletePost(String id) {
+    return dio.delete("/data/posts/$id");
+  }
 }
 
 

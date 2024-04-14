@@ -21,8 +21,22 @@ class DetailPostCubit extends Cubit<DetailPostState> {
     await postRepo.fetchPost(id).then((value) {
       emit(state.copyWith(
           postEntity: value,
-          asyncSnapshot:
-              const AsyncSnapshot.withData(ConnectionState.done, true)));
+          asyncSnapshot: const AsyncSnapshot.withData(
+              ConnectionState.done, "Post get successful.")));
+    }).catchError((error) {
+      addError(error);
+    });
+  }
+
+  Future<void> deletePost() async {
+    emit(
+      state.copyWith(asyncSnapshot: const AsyncSnapshot.waiting()),
+    );
+    await Future.delayed(const Duration(seconds: 1));
+    await postRepo.deletePost(id).then((value) {
+      emit(state.copyWith(
+          asyncSnapshot: const AsyncSnapshot.withData(
+              ConnectionState.done, "Post deletion successful.")));
     }).catchError((error) {
       addError(error);
     });
