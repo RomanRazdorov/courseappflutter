@@ -104,6 +104,11 @@ class DioAppApi implements AppApi {
       "content": args["content"],
     });
   }
+
+  @override
+  Future fetchPost(String id) {
+    return dio.get("/data/posts/$id");
+  }
 }
 
 
