@@ -15,9 +15,6 @@ class NetPostRepo implements PostRepo {
   Future<Iterable> fetchPosts() async {
     try {
       final response = await api.fetchPosts();
-      // if (response.data["data"] == null && response.statusCode == 200) {
-      //   return const Iterable.empty();
-      // }
       return response.data;
     } on DioError catch (err) {
       if (err.response?.statusCode == 404) {
