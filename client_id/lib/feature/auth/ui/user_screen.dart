@@ -1,6 +1,7 @@
 // import 'package:adaptive_theme/adaptive_theme.dart';
 // import 'package:client_id/app/di/init_di.dart';
 // import 'package:client_id/app/domain/app_api.dart';
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:client_id/app/domain/error_entity.dart/error_entity.dart';
 import 'package:client_id/app/ui/app_loader.dart';
 //import 'package:client_id/app/ui/app_theme_widget.dart';
@@ -111,7 +112,38 @@ class UserScreen extends StatelessWidget {
                     child: const Text(
                         style: TextStyle(fontSize: 23), "Edit Data")),
               ],
-            )
+            ),
+            const Padding(padding: EdgeInsets.only(top: 50)),
+            const Text(
+              'You can switch between light and dark theme using the switch below.',
+              style: TextStyle(fontSize: 20),
+            ),
+            const SizedBox(height: 20),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text('Light',
+                    style: TextStyle(
+                      fontSize: 16,
+                    )),
+                const SizedBox(width: 10),
+                Switch(
+                  value: AdaptiveTheme.of(context).mode.isDark,
+                  onChanged: (value) {
+                    if (value) {
+                      AdaptiveTheme.of(context).setDark();
+                    } else {
+                      AdaptiveTheme.of(context).setLight();
+                    }
+                  },
+                ),
+                const SizedBox(width: 10),
+                const Text(
+                  'Dark',
+                  style: TextStyle(fontSize: 16),
+                ),
+              ],
+            ),
           ]),
         );
       }),

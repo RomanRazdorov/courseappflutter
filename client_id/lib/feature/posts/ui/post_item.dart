@@ -16,12 +16,15 @@ class PostItem extends StatelessWidget {
                 DetailPostScreen(id: postEntity.id.toString())));
       },
       child: Card(
-        color: Colors.white,
+        //color: Colors.white,
         child: Column(
           children: [
+            const SizedBox(height: 16),
             Text(postEntity.name),
+            const SizedBox(height: 16),
             Text(postEntity.preContent ?? ''),
-            Text("Author: ${postEntity.author?.id ?? ''}"),
+            //Text("Author: ${postEntity.author?.id ?? ''}"),
+            const SizedBox(height: 16),
           ],
         ),
       ),

@@ -1,3 +1,4 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:client_id/app/di/init_di.dart';
 import 'package:client_id/app/domain/app_builder.dart';
 import 'package:client_id/app/ui/root_screen.dart';
@@ -10,11 +11,35 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MainAppBuilder implements AppBuilder {
   @override
-  Widget buildApp() {
-    return const _GlobalProviders(
+  Widget buildApp(savedThemeMode) {
+    return AdaptiveTheme(
+      light: ThemeData(
+        useMaterial3: true,
+        brightness: Brightness.light,
+        colorSchemeSeed: Colors.blue,
+      ),
+      dark: ThemeData(
+        useMaterial3: true,
+        brightness: Brightness.dark,
+        colorSchemeSeed: Colors.blue,
+      ),
+      initial: savedThemeMode ?? AdaptiveThemeMode.dark,
+      builder: (theme, darkTheme) => _GlobalProviders(
         child: MaterialApp(
-      home: RootScreen(),
-    ));
+          debugShowCheckedModeBanner: false,
+          theme: theme,
+          darkTheme: darkTheme,
+          home: const RootScreen(),
+        ),
+      ),
+      debugShowFloatingThemeButton: true,
+    );
+    // return _GlobalProviders(
+    //   child: MaterialApp(
+    //     debugShowCheckedModeBanner: false,
+    //     home: RootScreen(),
+    //   ),
+    // );
   }
 }
 

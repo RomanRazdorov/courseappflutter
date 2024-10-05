@@ -1,3 +1,4 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:client_id/app/di/init_di.dart';
 import 'package:client_id/app/domain/app_builder.dart';
 import 'package:client_id/app/domain/app_runner.dart';
@@ -23,7 +24,8 @@ class MainAppRunner implements AppRunner {
     HydratedBlocOverrides.runZoned(
       () async {
         await preloadData();
-        runApp(appBuilder.buildApp());
+        final savedThemeMode = await AdaptiveTheme.getThemeMode();
+        runApp(appBuilder.buildApp(savedThemeMode));
       },
       storage: storage,
     );
