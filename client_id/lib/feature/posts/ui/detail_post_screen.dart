@@ -79,8 +79,11 @@ class _DetailPostItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        Text("Name: ${postEntity.name}"),
-        Text("Content: ${postEntity.content}"),
+        SelectableText(
+          "Name: ${postEntity.name}",
+          textAlign: TextAlign.center,
+        ),
+        SelectableText("Content: ${postEntity.content}"),
       ],
     );
   }
